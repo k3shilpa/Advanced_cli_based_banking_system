@@ -19,13 +19,23 @@ class Account:
         })
 
     def withdraw(self, amount):
+        MIN_BALANCE = 100
+
         if amount > self.balance:
+            print("Insufficient balance")
+            return False
+
+        if self.balance - amount < MIN_BALANCE:
+            print("Cannot withdraw. Minimum balance of 100 must be maintained.")
             return False
 
         self.balance -= amount
+
         self.transactions.append({
             "type": "withdraw",
             "amount": amount,
-            "time": str(datetime.now())
+            "time": str(datetime.now()),
+            "balance": self.balance
         })
+
         return True
